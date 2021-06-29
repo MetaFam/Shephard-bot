@@ -18,13 +18,16 @@ COPY requirements.txt .
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
+# Copy env file
+COPY .env .env
+
 # Create and switch to a new user
 RUN useradd --create-home appuser
 WORKDIR /home/appuser
 USER appuser
 
 # Transfer source to image
-COPY . .
+COPY src src
 
 # Run bot
 CMD [ "python3", "-m" , "src"]
