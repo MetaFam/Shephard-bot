@@ -1,4 +1,5 @@
 import os
+import json
 
 from dotenv import load_dotenv
 from typing import NamedTuple
@@ -9,9 +10,11 @@ PREFIX = os.environ['PREFIX'] or '^'
 TOKEN = os.environ['DISCORD_TOKEN']
 MONGO_URI = os.environ['MONGO_URI']
 
-COGS = ["src.cogs.hello_world"]
-#        "src.cogs.help",
-#        "src.cogs.goals"]
+COGS = [
+    "src.cogs.hello_world",
+    "src.cogs.checkin"]
+#   "src.cogs.help",
+#    "src.cogs.goals"]
 
 class Emojis(NamedTuple):
     VERIFY = "" #TODO: put in a verification emoji(in proper format) here
@@ -27,3 +30,5 @@ class Verifiers:
     # TODO: Set up a config file for getting all the IDs/Roles that can validate/verify the message.
     admin = 558192816308617227
 
+with open("meta.json") as f:
+    META = json.load(f)
