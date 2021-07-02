@@ -1,5 +1,6 @@
 from discord.ext import commands
-from discord.ext.commands import Context, Cog
+from discord.ext.commands import Cog, Context
+
 from src.consts import META
 
 

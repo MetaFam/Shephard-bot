@@ -1,8 +1,8 @@
-import os
 import json
+import os
+from typing import NamedTuple
 
 from dotenv import load_dotenv
-from typing import NamedTuple
 
 load_dotenv()
 
