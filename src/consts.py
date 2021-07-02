@@ -6,13 +6,11 @@ from typing import NamedTuple
 
 load_dotenv()
 
-PREFIX = os.environ['PREFIX'] or '^'
-TOKEN = os.environ['DISCORD_TOKEN']
-MONGO_URI = os.environ['MONGO_URI']
+PREFIX = os.environ["PREFIX"] or "^"
+TOKEN = os.environ["DISCORD_TOKEN"]
+MONGO_URI = os.environ["MONGO_URI"]
 
-COGS = [
-    "src.cogs.hello_world",
-    "src.cogs.standup"]
+COGS = ["src.cogs.hello_world", "src.cogs.standup"]
 #   "src.cogs.help",
 #    "src.cogs.goals"]
 
@@ -23,9 +21,9 @@ class Emojis(NamedTuple):
 
 
 class Colo:
-    purple = 0x5a32e6
-    pink = 0xe839b7
-    cyan = 0x79f8fb
+    purple = 0x5A32E6
+    pink = 0xE839B7
+    cyan = 0x79F8FB
 
 
 class Verifiers:
