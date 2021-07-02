@@ -12,7 +12,7 @@ MONGO_URI = os.environ['MONGO_URI']
 
 COGS = [
     "src.cogs.hello_world",
-    "src.cogs.checkin"]
+    "src.cogs.standup"]
 #   "src.cogs.help",
 #    "src.cogs.goals"]
 
