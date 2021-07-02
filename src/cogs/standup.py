@@ -8,34 +8,48 @@ from motor.motor_asyncio import AsyncIOMotorClient as MotorClient
 from src.consts import MONGO_URI
 
 
-class Formatter(Converter):
-    async def convert(self, ctx: Context, tasks: str):
-        data = {
-            "approved": False,
-            "date_reported": ctx.message.created_at.timestamp(),
-            "last_edited": ctx.message.created_at.timestamp(),
-        }
-        data["tasks"] = tasks.split("\n")
-        return data
+def formatted(ctx: Context, tasks: str):
+    data = {
+        "approved": False,
+        "date_reported": ctx.message.created_at.timestamp(),
+        "last_edited": ctx.message.created_at.timestamp(),
+    }
+    data["tasks"] = tasks.split("\n")
+    return data
 
 
 class Standup(Cog):
     def __init__(self, bot):
         self.bot = bot
         self.DB = MotorClient(MONGO_URI).players.tasks
+        self.messages = {}
+
+    @Cog.listener()
+    async def on_reaction_add(self, reaction, user):
+        if reaction.emoji == "👍" and str(reaction.message.id) in self.messages:
+            record = await self.DB.find_one({"_id": str(user.id)})
+            field = f"data.{len(record['data']) - 1}.approved"
+            stuff = await self.DB.update_one(
+                record,
+                {"$set": {field: True}}
+            )
+            await reaction.message.channel.send("Your tasks just got verified")
+
 
     @commands.group(invoke_without_command=True, case_insensitive=True)
-    async def standup(self, ctx: Context, *, content):
+    async def standup(self, ctx: Context, *, content: str):
         """Standup Commands Group. Stores tasks from standup messages"""
         await self.create(ctx, content)
 
     @standup.command()
-    async def create(self, ctx: Context, *, tasks: Formatter):
+    async def create(self, ctx: Context, *, tasks: str):
         """Command for creating standups and storing tasks"""
         record = await self.DB.find_one({"_id": str(ctx.author.id)})
 
+        tasks = formatted(tasks)
+
         if record:
-            data = record["data"] + tasks
+            data = record["data"] + [tasks]
             await self.DB.update_one(record, {"$set": {"data": data}})
         else:
             self.DB.insert_one(
@@ -43,6 +57,7 @@ class Standup(Cog):
             )
         tasks = "\n".join(tasks["tasks"])
         await ctx.author.send(f"Successfully submitted your tasks:\n{tasks}")
+        self.messages[str(ctx.message.id)] = ctx.author.id
 
     @standup.command()
     async def log(self, ctx: Context):
@@ -94,15 +109,18 @@ Reuse the command with all the tasks that you'd like to replace the old tasks wi
                     color=Color.green(),
                 )
 
-                data = record["data"]
-                data[-1] = {
-                    "approved": False,
-                    "date_reported": data[-1]["date_reported"],
-                    "last_edited": datetime.now().timestamp,
-                    "tasks": content.split("\n"),
-                }
+                field = len(record['data']) - 1
 
-                await self.DB.update_one(record, {"$set": {"data": data}})
+                await self.DB.update_one(
+                    record,
+                    {
+                        "$set": {
+                            f"data.{field}.approved": False,
+                            f"data.{field}.last_edited": datetime.now().timestamp(),
+                            f"data.{field}.tasks": content.split("\n")
+                        }
+                    }
+                )
             else:
                 embed = Embed(
                     description="No previous records found. A new record with these tasks has been created.",
