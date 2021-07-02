@@ -80,7 +80,8 @@ class Standup(Cog):
         if not content:
             await ctx.send(
                 embed=Embed(
-                    description="Content not specified. Reuse the command with all the tasks that you'd like to replace the old tasks with\n",
+                    description="Content not specified.\n\
+Reuse the command with all the tasks that you'd like to replace the old tasks with",
                     color=Color.red(),
                 )
             )
@@ -104,7 +105,7 @@ class Standup(Cog):
                 await self.DB.update_one(record, {"$set": {"data": data}})
             else:
                 embed = Embed(
-                    description="No previous instance or tasks were found for you. A new record has been created with the tasks mentioned.",
+                    description="No previous records found. A new record with these tasks has been created.",
                     color=Color.gold(),
                 )
                 await ctx.create(ctx, content)

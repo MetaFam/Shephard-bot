@@ -1,5 +1,3 @@
-import os
-
 from discord import Intents
 from discord.ext import commands
 

@@ -12,7 +12,7 @@ class Testing(Cog):
 
     @Cog.listener()
     async def on_ready(self):
-        print(f"Bot is online! Currently running version - v%s" % META["version"])
+        print("Bot is online! Currently running version - v%s" % META["version"])
 
     @commands.command()
     async def ping(self, ctx: Context):
