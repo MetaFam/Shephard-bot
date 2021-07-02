@@ -1,11 +1,11 @@
-from src.consts import MONGO_URI
-
-from discord import Embed, Color
-from discord.ext import commands
-from discord.ext.commands import Context, Cog, Converter
-
-from motor.motor_asyncio import AsyncIOMotorClient as MotorClient
 from datetime import datetime
+
+from discord import Color, Embed
+from discord.ext import commands
+from discord.ext.commands import Cog, Context, Converter
+from motor.motor_asyncio import AsyncIOMotorClient as MotorClient
+
+from src.consts import MONGO_URI
 
 
 class Formatter(Converter):
