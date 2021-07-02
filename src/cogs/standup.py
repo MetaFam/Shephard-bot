@@ -7,6 +7,7 @@ from discord.ext.commands import Context, Cog, Converter
 from motor.motor_asyncio import AsyncIOMotorClient as MotorClient
 from datetime import datetime
 
+
 class Formatter(Converter):
     async def convert(self, ctx: Context, tasks: str):
         data = {
@@ -42,7 +43,7 @@ class Standup(Cog):
                 {
                     "$set": {
                         "data": data
-                        }
+                    }
                 }
             )
         else:
@@ -72,7 +73,8 @@ class Standup(Cog):
             )
             embed.add_field(
                 name="Date Added",
-                value="%s UTC" % datetime.fromtimestamp(data['date_reported']).strftime("%b-%d-%Y %H:%M")
+                value="%s UTC" % datetime.fromtimestamp(
+                    data['date_reported']).strftime("%b-%d-%Y %H:%M")
             )
             embed.add_field(
                 name="Status",
@@ -102,8 +104,7 @@ class Standup(Cog):
             if record:
                 embed = Embed(
                     description="The relevant edits have been made to the record of your tasks",
-                    color=Color.green()
-                )
+                    color=Color.green())
 
                 data = record['data']
                 data[-1] = {
@@ -124,8 +125,7 @@ class Standup(Cog):
             else:
                 embed = Embed(
                     description="No previous instance or tasks were found for you. A new record has been created with the tasks mentioned.",
-                    color=Color.gold()
-                )
+                    color=Color.gold())
                 await ctx.create(ctx, content)
             await ctx.send(embed=embed)
 

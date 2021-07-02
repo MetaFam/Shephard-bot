@@ -16,19 +16,24 @@ COGS = [
 #   "src.cogs.help",
 #    "src.cogs.goals"]
 
+
 class Emojis(NamedTuple):
-    VERIFY = "" #TODO: put in a verification emoji(in proper format) here
-    CANCEL = "" #TODO: put in a cancelation emoji(in proper format) here
+    VERIFY = ""  # TODO: put in a verification emoji(in proper format) here
+    CANCEL = ""  # TODO: put in a cancelation emoji(in proper format) here
+
 
 class Colo:
     purple = 0x5a32e6
     pink = 0xe839b7
     cyan = 0x79f8fb
 
+
 class Verifiers:
     # temp admin variable for testing.
-    # TODO: Set up a config file for getting all the IDs/Roles that can validate/verify the message.
+    # TODO: Set up a config file for getting all the IDs/Roles that can
+    # validate/verify the message.
     admin = 558192816308617227
+
 
 with open("meta.json") as f:
     META = json.load(f)
