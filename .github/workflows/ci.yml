@@ -1,13 +1,13 @@
 name: Format, Lint, Test
 
 on:
-	workflow_dispatch:
-	push:
-		branches:
-			- main
-	pull_request:
-		paths-ignore:
-			- .github/**
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths-ignore:
+      - .github/**
 
 jobs:
   format_lint_test:
