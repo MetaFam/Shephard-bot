@@ -30,7 +30,7 @@ class Bot(commands.Bot):
             )
         if (consts.MONGO_URI is None) or (consts.MONGO_URI == ""):
             raise EnvironmentError("No Mongo URI found. Can't connect to database.")
-        if (consts.TOKEN == "foo"):
+        if consts.TOKEN == "foo":
             print("No token loaded, cog-loading completed")
             return
         super().run(consts.TOKEN)
