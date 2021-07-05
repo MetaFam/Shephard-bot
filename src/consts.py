@@ -6,9 +6,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-PREFIX = os.environ["PREFIX"] or "^"
-TOKEN = os.environ["DISCORD_TOKEN"]
-MONGO_URI = os.environ["MONGO_URI"]
+PREFIX = os.getenv("PREFIX") or "^"
+TOKEN = os.getenv("DISCORD_TOKEN") or "foo"
+MONGO_URI = os.getenv("MONGO_URI") or "bar"
 
 COGS = ["src.cogs.helpers", "src.cogs.standup"]
 #   "src.cogs.help",
