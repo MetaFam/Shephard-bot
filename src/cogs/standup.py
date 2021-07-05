@@ -2,7 +2,7 @@ from datetime import datetime
 
 from discord import Color, Embed
 from discord.ext import commands
-from discord.ext.commands import Cog, Context, Converter
+from discord.ext.commands import Cog, Context
 from motor.motor_asyncio import AsyncIOMotorClient as MotorClient
 
 from src.consts import MONGO_URI
@@ -22,14 +22,14 @@ class Standup(Cog):
     def __init__(self, bot):
         self.bot = bot
         self.DB = MotorClient(MONGO_URI).players.tasks
-        self.messages = {}
+        self.messages = []
 
     @Cog.listener()
     async def on_reaction_add(self, reaction, user):
         if reaction.emoji == "👍" and str(reaction.message.id) in self.messages:
             record = await self.DB.find_one({"_id": str(user.id)})
             field = f"data.{len(record['data']) - 1}.approved"
-            stuff = await self.DB.update_one(record, {"$set": {field: True}})
+            await self.DB.update_one(record, {"$set": {field: True}})
             await reaction.message.channel.send("Your tasks just got verified")
 
     @commands.group(invoke_without_command=True, case_insensitive=True)
@@ -53,7 +53,7 @@ class Standup(Cog):
             )
         tasks = "\n".join(tasks["tasks"])
         await ctx.author.send(f"Successfully submitted your tasks:\n{tasks}")
-        self.messages[str(ctx.message.id)] = ctx.author.id
+        self.messages.append(str(ctx.message.id))
 
     @standup.command()
     async def log(self, ctx: Context):
