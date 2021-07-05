@@ -29,12 +29,8 @@ class Standup(Cog):
         if reaction.emoji == "👍" and str(reaction.message.id) in self.messages:
             record = await self.DB.find_one({"_id": str(user.id)})
             field = f"data.{len(record['data']) - 1}.approved"
-            stuff = await self.DB.update_one(
-                record,
-                {"$set": {field: True}}
-            )
+            stuff = await self.DB.update_one(record, {"$set": {field: True}})
             await reaction.message.channel.send("Your tasks just got verified")
-
 
     @commands.group(invoke_without_command=True, case_insensitive=True)
     async def standup(self, ctx: Context, *, content: str):
@@ -109,7 +105,7 @@ Reuse the command with all the tasks that you'd like to replace the old tasks wi
                     color=Color.green(),
                 )
 
-                field = len(record['data']) - 1
+                field = len(record["data"]) - 1
 
                 await self.DB.update_one(
                     record,
@@ -117,9 +113,9 @@ Reuse the command with all the tasks that you'd like to replace the old tasks wi
                         "$set": {
                             f"data.{field}.approved": False,
                             f"data.{field}.last_edited": datetime.now().timestamp(),
-                            f"data.{field}.tasks": content.split("\n")
+                            f"data.{field}.tasks": content.split("\n"),
                         }
-                    }
+                    },
                 )
             else:
                 embed = Embed(

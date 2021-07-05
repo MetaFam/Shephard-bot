@@ -18,6 +18,10 @@ class Testing(Cog):
     async def ping(self, ctx: Context):
         await ctx.send("Pong! Running version - v%s" % META["version"])
 
+    @commands.command()
+    async def pong(self, ctx: Context):
+        await ctx.send(f"{ctx.author}, {ctx.message.content}, {ctx.message.id}")
+
 
 def setup(bot):
     bot.add_cog(Testing(bot))
