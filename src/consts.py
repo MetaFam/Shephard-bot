@@ -10,7 +10,7 @@ PREFIX = os.environ["PREFIX"] or "^"
 TOKEN = os.environ["DISCORD_TOKEN"]
 MONGO_URI = os.environ["MONGO_URI"]
 
-COGS = ["src.cogs.hello_world", "src.cogs.standup"]
+COGS = ["src.cogs.helpers", "src.cogs.standup"]
 #   "src.cogs.help",
 #    "src.cogs.goals"]
 
