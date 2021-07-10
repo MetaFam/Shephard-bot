@@ -53,7 +53,7 @@ And it's always a good idea to avoid committing changes directly to your `main` 
 
 You could use this command to create and switch to a new branch -
 ```rb
-git checkout -b <branchname> 
+git checkout -b <branchname>
 ```
 
 (Alternatively, you could also make a branch on github's UI and use `git fetch` and `git checkout <branch-name>` to switch to the created branch)
@@ -129,9 +129,9 @@ Now, there are 2 choices to move forward with setting up the environment, either
 
 #### **D1. Setting up the db and Running the bot with Docker-Compose**
 Docker-Compose sets up a local container running MongoDB, and the bot, which streamlines the development process.
-- Install [Docker Desktop](https://docs.docker.com/get-docker/) and [Docker-Compose]() 
+- Install [Docker Desktop](https://docs.docker.com/get-docker/) and [Docker-Compose]()
   Ideally, if you download [Docker Desktop](https://docs.docker.com/get-docker/), that should also bundle `docker-compose` with it. If it doesn't, run `pip install docker-compose` to install the tool.
-  > NOTE: You _might_ face issues when downloading these on a device that runnning a Windows version older than Windows 7. If you do face these issues, going along with **D2** might be a good option. 
+  > NOTE: You _might_ face issues when downloading these on a device that runnning a Windows version older than Windows 7. If you do face these issues, going along with **D2** might be a good option.
   > NOTE: If you are on Linux, you may need to run these commands with `sudo` priveledges(unless you add this to your server group)
 
 (this assumes that you're in the root directory of the repo)
@@ -155,7 +155,7 @@ Docker-Compose sets up a local container running MongoDB, and the bot, which str
   ```
   docker-compose down -v
   ```
-  
+
 
 Yaaaay! You're through the development environment setup 🎉\
 Now you could start working on the code :D
@@ -210,4 +210,3 @@ Now you could start working on the code :D
 - Clone the repo: `git clone https://github.com/MetaFam/shepherd-bot.git`
 - Install dependencies: `pip install -r requirements.txt`
 - Run the bot: `python -m src`
-
