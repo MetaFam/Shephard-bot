@@ -35,14 +35,14 @@ class Standup(Cog):
     @commands.group(invoke_without_command=True, case_insensitive=True)
     async def standup(self, ctx: Context, *, content: str):
         """Standup Commands Group. Stores tasks from standup messages"""
-        await self.create(ctx, content)
+        await self.create(ctx, tasks=content)
 
     @standup.command()
     async def create(self, ctx: Context, *, tasks: str):
         """Command for creating standups and storing tasks"""
         record = await self.DB.find_one({"_id": str(ctx.author.id)})
 
-        tasks = formatted(tasks)
+        tasks = formatted(ctx, tasks)
 
         if record:
             data = record["data"] + [tasks]
