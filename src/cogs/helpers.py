@@ -39,10 +39,6 @@ class CustomHelpCommand(commands.HelpCommand):
             embed.add_field(name="Aliases", value=", ".join(aliases), inline=False)
         await self.context.send(embed=embed)
 
-    async def send_group_help(self, group):
-        embed = HelpEmbed()
-        await self.context.send(embed=embed)
-
     async def send_cog_help(self, cog):
         cog_name = getattr(cog, "qualified_name", "No Category")
         embed = HelpEmbed(
