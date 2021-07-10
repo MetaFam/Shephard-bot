@@ -1,24 +1,55 @@
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.5.0
+    hooks:
+      - id: check-merge-conflict
+        stages: [push]
+      - id: check-yaml
+        stages: [push]
+      - id: end-of-file-fixer
+        stages: [push]
+      - id: mixed-line-ending
+        args: [ --fix=lf ]
+        stages: [push]
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+        stages: [push]
+
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.5.1
+    hooks:
+      - id: python-check-blanket-noqa
+        stages: [push]
+
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
+    rev: v1.2.1
+    hooks:
+    - id: python-safety-dependencies-check
+      stages: [push]
+
   - repo: local
     hooks:
       - id: isort
         name: isort
-        stages: [push]
+        description: This hook runs isort within the project env
         language: system
         entry: python -m isort src/**/*.py
         types: [python]
+        stages: [push]
 
       - id: black
         name: black
-        stages: [push]
+        description: This hook runs black within the project env
         language: system
         entry: python -m black src
         types: [python]
+        stages: [push]
 
       - id: flake8
         name: flake8
-        stages: [push]
+        description: This hook runs flake8 with the project env
         language: system
         entry: pipenv -m flake8 .
         types: [python]
+        stages: [push]
 
