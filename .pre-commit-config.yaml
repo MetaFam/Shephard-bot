@@ -33,7 +33,7 @@ repos:
         name: isort
         description: This hook runs isort within the project env
         language: system
-        entry: python -m isort src/**/*.py
+        entry: python -m isort src
         types: [python]
         stages: [push]
 
@@ -49,6 +49,6 @@ repos:
         name: flake8
         description: This hook runs flake8 with the project env
         language: system
-        entry: pipenv -m flake8 .
+        entry: python -m flake8 .
         types: [python]
         stages: [push]
