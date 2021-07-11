@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1
 
 FROM python:3.8-slim-buster
+LABEL org.opencontainers.image.source https://github.com/metafam/shepherd-bot
 
 # Setup env
 ENV LANG C.UTF-8

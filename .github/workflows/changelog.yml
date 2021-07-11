@@ -8,6 +8,7 @@ on:
 jobs:
   changelog:
     runs-on: ubuntu-latest
+    if: github.repository == 'Metafam/shepherd-bot'
 
     steps:
       - uses: actions/checkout@v2
