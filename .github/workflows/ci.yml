@@ -1,0 +1,59 @@
+name: Format, Lint, Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths-ignore:
+      - .github/**
+
+jobs:
+  format_lint_test:
+    # Check Formatting, Lint Code, Test Code (tests are a WIP)
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+  
+    - name: Install dev dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.dev.txt
+        
+    - name: Check code-formatting with Black
+      run: |
+        python -m black . --check --diff
+    - name: Lint code with Flake8
+      run: |
+        python -m flake8 --format='::error file=%(path)s,line=%(row)d,col=%(col)d::[flake8] %(code)s: %(text)s'
+    - name: Test code with Pytest
+      run: |
+        echo "No tests found..."
+        
+  cog_loader_test:
+  # loads cogs, to check if they have any issues
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+  
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Load cogs, and run bot
+      env:
+        DISCORD_TOKEN: foo
+        MONGO_URI: bar
+      run: |
+        python -m src

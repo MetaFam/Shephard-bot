@@ -1,0 +1,12 @@
+{
+    "name": "Shepherd Bot",
+    "version": "0.0.0",
+    "license": "MIT License",
+    "repository": "https://github.com/MetaFam/shepherd-bot/tree/feat/basic-setup",
+    "registry": "Github Container Registry",
+    "description": "Discord bot made in python for progress reports and goal reminders, for use at Metagame.",
+    "keywords": "discord bot, standup reminders, mongodb, goal validation, metagame NPC",
+    "privacy_policy": "",
+    "terms_and_conditions": "",
+    "latest_image": ""
+}
