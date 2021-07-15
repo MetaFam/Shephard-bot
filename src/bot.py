@@ -10,6 +10,7 @@ class Bot(commands.Bot):
     def __init__(self):
         intents = Intents.default()
         intents.members = True
+        intents.reactions = True
 
         super().__init__(
             command_prefix=consts.PREFIX, case_insensitive=True, intents=intents
