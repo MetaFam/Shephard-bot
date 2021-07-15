@@ -1,6 +1,6 @@
 {
   "name": "Shepherd Bot",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT License",
   "repository": "https://github.com/MetaFam/shepherd-bot/tree/feat/basic-setup",
   "registry": "Github Container Registry",

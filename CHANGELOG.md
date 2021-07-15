@@ -1,4 +1,15 @@
-# 0.1.0 (2021-07-11)
+# [0.2.0](https://github.com/MetaFam/shepherd-bot/compare/v0.1.0...v0.2.0) (2021-07-15)
+
+
+### Features
+
+* commands and tasks cog-split ([64eea80](https://github.com/MetaFam/shepherd-bot/commit/64eea8068f08db946e3d06f0901efe9e56574fe5))
+* message tracking via db ([5b5019f](https://github.com/MetaFam/shepherd-bot/commit/5b5019f35daa3b6c3fcf0f93d4e8a1f31c3c1cb6))
+* reminder task loop ([9d3c864](https://github.com/MetaFam/shepherd-bot/commit/9d3c864083292ee79248e97cbd88fdf1cadf214a))
+
+
+
+# [0.1.0](https://github.com/MetaFam/shepherd-bot/compare/56963fd686ff58cdccc421659816931933eb86bc...v0.1.0) (2021-07-11)
 
 
 ### Bug Fixes
