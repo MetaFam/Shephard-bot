@@ -1,15 +1,12 @@
 from datetime import datetime
+from typing import Union
 
-from discord import Color, Embed
-from discord import Member, User
-from discord import Forbidden
-
+from discord import Color, Embed, Forbidden, Member, User
 from discord.ext import tasks
 from discord.ext.commands import Cog
 from motor.motor_asyncio import AsyncIOMotorClient as MotorClient
 
-from src.consts import MONGO_URI, GUILD_ID
-from typing import Union
+from src.consts import GUILD_ID, MONGO_URI
 
 reminder_text = "Don't forget to report your weekly progress in `#champion-ring`.\n\
 You can do so by using the `^standup` command. Usage example-\n\
@@ -29,7 +26,7 @@ def reminder_embed(member: Union[Member, User]) -> Embed:
         title="Reminder for weekly standup",
         description=f"Hey, {member.mention}\n{reminder_text}",
         color=Color.gold(),
-        timestamp=datetime.utcnow()
+        timestamp=datetime.utcnow(),
     ).set_footer(text="To opt out of these alerts, use the `^standup alerts` command")
 
 
@@ -43,11 +40,11 @@ class Reminder(Cog):
     async def weekly_reminder(self):
         """Sends people a weekly reminder on every Saturday, to submit standups"""
         if is_saturday():
-            print('Saturday: Sending members reminder alerts')
+            print("Saturday: Sending members reminder alerts")
             guild = self.bot.get_guild(GUILD_ID)
             async for member in self.DB.find({"alerts": True}, {"data": 0}):
                 try:
-                    member = guild.get_member(int(member['_id']))
+                    member = guild.get_member(int(member["_id"]))
                     await member.send(embed=reminder_embed(member))
                 except Forbidden:
                     print(f"Can't DM member: {member}")

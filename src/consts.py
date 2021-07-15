@@ -11,11 +11,7 @@ TOKEN = os.getenv("DISCORD_TOKEN") or "foo"
 MONGO_URI = os.getenv("MONGO_URI") or "bar"
 GUILD_ID = int(os.getenv("DISCORD_GUILD_ID") or "629411177947987986")
 
-COGS = [
-    "src.commands.helpers",
-    "src.commands.standup",
-    "src.tasks.reminder"
-]
+COGS = ["src.commands.helpers", "src.commands.standup", "src.tasks.reminder"]
 #   "src.cogs.help",
 #    "src.cogs.goals"]
 
