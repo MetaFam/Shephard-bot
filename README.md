@@ -12,8 +12,7 @@
   I did something on Saturday.
   I also did some work on Sunday, and implemented XYZ.
   ```
-- The bot would also send a weekly reminder to everyone in the bot's DB, to remind them that they need to report their progress for this week.
-
+- The bot also sends a weekly reminder to everyone in the bot's DB, to remind them that they need to report their progress for this week. These are optional, and can be opted out of.
 - Bonus: The bot keeps track of whether the person sticks to what they say they will do by checking if they received a checkmark emoji on their report from the guild leader or "verifier".
 
 ## How to contribute to this project?
@@ -78,13 +77,17 @@ This might be slightly confusing at first, due to the large amounts of ways of s
     ```
     DISCORD_TOKEN="the token you just copied"
     ```
+- It would be recommended that you set up a new test discord server, and invite the bot there. Also, you would have to turn on Developer Mode on discord(If you don't know how to do that, you can find out [here](https://helpdeskgeek.com/how-to/how-to-enable-and-use-developer-mode-on-discord/)). After doing that you can go to your server, right click on the server icon and click on `Copy ID` to copy the copy the `DISCORD_GUILD_ID` from there.
+  Open the `.env` file, and set the value-
+  ```
+  DISCORD_GUILD_ID="<ID-number-that-you-just-copied>"
+  ```
 - Inviting this test-discord-bot to your server: Go to the `General Information` tab on that bot's dashboard on Discord Developers Portal, and copy the bot's Client ID:
   Replace `<INSERT_CLIENT_ID>` in below with the Client ID you just copied-
   ```
   https://discord.com/api/oauth2/authorize?client_id=<INSERT_CLIENT_ID>&permissions=85056&scope=bot
   ```
   Visit the link, and add this bot to a test server.
-
 
 #### **B. Set up the dev environment**
 This project adds some tools and dependencies to the project, so that it is easier for you to pass the CI, and checks on the repo, and also to maintain some amount of clean formatting and clean code. This would also add some pre-push hooks to your project.
