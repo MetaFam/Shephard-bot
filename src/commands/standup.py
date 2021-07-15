@@ -1,15 +1,12 @@
 from datetime import datetime
 
-from discord import Color, Embed
-from discord import User, Member, RawReactionActionEvent
-
+from discord import Color, Embed, RawReactionActionEvent
 from discord.ext import commands
 from discord.ext.commands import Cog, Context
 from motor.motor_asyncio import AsyncIOMotorClient as MotorClient
 
-from src.consts import MONGO_URI, GUILD_ID
+from src.consts import GUILD_ID, MONGO_URI
 
-from typing import Union
 
 def formatted(ctx: Context, tasks: str):
     data = {
@@ -26,19 +23,15 @@ class Standup(Cog):
         self.bot = bot
         self.DB = MotorClient(MONGO_URI).players.tasks
 
-
     @Cog.listener()
     async def on_raw_reaction_add(self, payload: RawReactionActionEvent):
         if payload.guild_id == GUILD_ID and payload.emoji.name == "👍":
-            record = await self.DB.find_one(
-                {"message": str(payload.message_id)}
-            )
+            record = await self.DB.find_one({"message": str(payload.message_id)})
             if record:
                 field = f"data.{len(record['data']) - 1}.approved"
                 await self.DB.update_one(record, {"$set": {field: True}})
                 channel = self.bot.get_channel(payload.channel_id)
                 await channel.send("Your tasks just got verified")
-
 
     @commands.group(invoke_without_command=True, case_insensitive=True)
     async def standup(self, ctx: Context, *, content: str):
@@ -54,10 +47,17 @@ class Standup(Cog):
 
         if record:
             data = record["data"] + [tasks]
-            await self.DB.update_one(record, {"$set": {"message": str(ctx.message.id), "data": data}})
+            await self.DB.update_one(
+                record, {"$set": {"message": str(ctx.message.id), "data": data}}
+            )
         else:
             self.DB.insert_one(
-                    {"_id": str(ctx.author.id), "alerts": True, "message": str(ctx.message.id), "data": [tasks]}
+                {
+                    "_id": str(ctx.author.id),
+                    "alerts": True,
+                    "message": str(ctx.message.id),
+                    "data": [tasks],
+                }
             )
         tasks = "\n".join(tasks["tasks"])
         await ctx.author.send(f"Successfully submitted your tasks:\n{tasks}")
@@ -132,12 +132,12 @@ Reuse the command with all the tasks that you'd like to replace the old tasks wi
                 await ctx.create(ctx, content)
             await ctx.send(embed=embed)
 
-    @commands.command(hidden=True, aliases=['alerts', 'reminder', 'reminders'])
+    @commands.command(hidden=True, aliases=["alerts", "reminder", "reminders"])
     async def alert(self, ctx: Context, action: str = "toggle"):
         """Auxiliary Command that toggles alert status"""
         await self.alerts(ctx, action)
 
-    @standup.command(aliases=['alert', 'reminder', 'reminders'])
+    @standup.command(aliases=["alert", "reminder", "reminders"])
     async def alerts(self, ctx: Context, action: str = "toggle"):
         """Command for toggling alert status"""
         record = await self.DB.find_one({"_id": str(ctx.author.id)})
