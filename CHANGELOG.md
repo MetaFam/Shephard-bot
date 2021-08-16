@@ -54,6 +54,3 @@
 * Standup command for logging goals ([97b5182](https://github.com/MetaFam/shepherd-bot/commit/97b5182bef0de5f88c078acb09bb543f6487601a))
 * versioning ([6f9b865](https://github.com/MetaFam/shepherd-bot/commit/6f9b86570fb45f77f8a6eef38ba79e82dbef61a7))
 * versioning ([8061d6e](https://github.com/MetaFam/shepherd-bot/commit/8061d6e5565c5a8440e83ee194e6662b2bf6053c))
-
-
-
