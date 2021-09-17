@@ -20,12 +20,12 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-  
+
     - name: Install dev dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.dev.txt
-        
+
     - name: Check code-formatting with Black
       run: |
         python -m black . --check --diff
@@ -35,18 +35,18 @@ jobs:
     - name: Test code with Pytest
       run: |
         echo "No tests found..."
-        
+
   cog_loader_test:
   # loads cogs, to check if they have any issues
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-  
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
