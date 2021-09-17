@@ -1,3 +1,12 @@
+# [0.3.0](https://github.com/MetaFam/shepherd-bot/compare/v0.2.0...v0.3.0) (2021-09-17)
+
+
+### Features
+
+* set up some necromancy commands ([c4c34d3](https://github.com/MetaFam/shepherd-bot/commit/c4c34d3acde20f333b89ebd9b49087229597778a))
+
+
+
 # [0.2.0](https://github.com/MetaFam/shepherd-bot/compare/v0.1.0...v0.2.0) (2021-07-15)
 
 
@@ -54,3 +63,6 @@
 * Standup command for logging goals ([97b5182](https://github.com/MetaFam/shepherd-bot/commit/97b5182bef0de5f88c078acb09bb543f6487601a))
 * versioning ([6f9b865](https://github.com/MetaFam/shepherd-bot/commit/6f9b86570fb45f77f8a6eef38ba79e82dbef61a7))
 * versioning ([8061d6e](https://github.com/MetaFam/shepherd-bot/commit/8061d6e5565c5a8440e83ee194e6662b2bf6053c))
+
+
+
