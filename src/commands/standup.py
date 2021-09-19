@@ -5,7 +5,7 @@ from discord.ext import commands
 from discord.ext.commands import Cog, Context
 from motor.motor_asyncio import AsyncIOMotorClient as MotorClient
 
-from src.consts import GUILD_ID, MONGO_URI
+from src.consts import GUILD_ID, MONGO_URI, VERIFIER_ROLES, Emojis
 
 
 def formatted(ctx: Context, tasks: str):
@@ -25,13 +25,25 @@ class Standup(Cog):
 
     @Cog.listener()
     async def on_raw_reaction_add(self, payload: RawReactionActionEvent):
-        if payload.guild_id == GUILD_ID and payload.emoji.name == "👍":
-            record = await self.DB.find_one({"message": str(payload.message_id)})
-            if record:
-                field = f"data.{len(record['data']) - 1}.approved"
-                await self.DB.update_one(record, {"$set": {field: True}})
-                channel = self.bot.get_channel(payload.channel_id)
-                await channel.send("Your tasks just got verified")
+        if payload.guild_id == GUILD_ID and payload.emoji.name == Emojis.VERIFY:
+            if (
+                len(
+                    list(
+                        filter(
+                            lambda role: role.id in VERIFIER_ROLES, payload.member.roles
+                        )
+                    )
+                )
+                > 0
+            ):
+                record = await self.DB.find_one({"message": str(payload.message_id)})
+                if record:
+                    field = f"data.{len(record['data']) - 1}.approved"
+                    await self.DB.update_one(record, {"$set": {field: True}})
+                    channel = self.bot.get_channel(payload.channel_id)
+                    await channel.send(
+                        f"{payload.member.mention} - Your tasks just got verified!"
+                    )
 
     @commands.group(invoke_without_command=True, case_insensitive=True)
     async def standup(self, ctx: Context, *, content: str):
@@ -39,6 +51,7 @@ class Standup(Cog):
         await self.create(ctx, tasks=content)
 
     @standup.command()
+    @commands.guild_only()
     async def create(self, ctx: Context, *, tasks: str):
         """Command for creating standups and storing tasks"""
         record = await self.DB.find_one({"_id": str(ctx.author.id)})

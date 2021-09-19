@@ -15,9 +15,17 @@ COGS = ["src.commands.helpers", "src.commands.standup", "src.tasks.reminder"]
 #   "src.cogs.help",
 #    "src.cogs.goals"]
 
+VERIFIER_ROLES = [
+    665574957094535199,
+    659519940159602746,
+    659519668553252864,
+    659518696506785802,
+    814464073386426389,
+]
+
 
 class Emojis(NamedTuple):
-    VERIFY = ""  # TODO: put in a verification emoji(in proper format) here
+    VERIFY = "👍"  # TODO: put in a verification emoji(in proper format) here
     CANCEL = ""  # TODO: put in a cancelation emoji(in proper format) here
 
 
@@ -25,13 +33,6 @@ class Colo:
     purple = 0x5A32E6
     pink = 0xE839B7
     cyan = 0x79F8FB
-
-
-class Verifiers:
-    # temp admin variable for testing.
-    # TODO: Set up a config file for getting all the IDs/Roles that can
-    # validate/verify the message.
-    admin = 558192816308617227
 
 
 with open("meta.json") as f:
